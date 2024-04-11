@@ -9,6 +9,15 @@ void auto_brake(int devid)
     // Task-1: 
     // Your code here (Use Lab 02 - Lab 04 for reference)
     // Use the directions given in the project document
+
+    /*
+    Distance                Action              LED Color
+    ======================================================
+    >200cm                  No breaking         Green
+    100cm < d <= 200cm      Break lightly       Red and green
+    60cm < d <= 100cm       Break hard          Red
+    d <= 60cm               Must stop           Flashing red (100ms blinks)
+    */
 }
 
 int read_from_pi(int devid)
