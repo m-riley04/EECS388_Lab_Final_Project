@@ -23,6 +23,7 @@ void auto_brake(int devid)
    uint8_t dist_L   = 0;
    uint8_t dist_H   = 0;
    uint16_t dist    = 0;
+   int gpio         = RED_LED;
 
    // Check first 2 bytes to ensure frame headers exist and are valid
    if ('Y' == ser_read(devid) && 'Y' == ser_read(devid)) {
@@ -37,14 +38,28 @@ void auto_brake(int devid)
 
         //=== READING DISTANCE
         if (dist > 200) {
-            // No breaking - turn green on and others off
+            //== No breaking - turn green on and others off
+            gpio_write(GREEN_LED, ON);
+            gpio_write(RED_LED, OFF);
+
         } else if (100 < dist && dist <= 200) {
-            // Break lightly - turn red and green on and others off
+            //== Break lightly - turn red and green on and others off
+            gpio_write(GREEN_LED, ON);
+            gpio_write(RED_LED, ON);
+
         } else if (60 < dist && dist <= 100) {
-            // Break hard - turn red on and others off
+            //== Break hard - turn red on and others off
+            gpio_write(GREEN_LED, OFF);
+            gpio_write(RED_LED, ON);
+
         } else {
-            // Must stop - flash red and turn other colors off
+            //== Must stop - flash red and turn other colors off
+            gpio_write(GREEN_LED, OFF);
+            gpio_write(RED_LED, ON);
         }
+
+        // Write the gpio pin
+        
 
         // OPTIONAL - Print the distance
         printf("Distance: %u cm \n", dist);
