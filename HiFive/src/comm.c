@@ -57,7 +57,7 @@ void auto_brake(int devid)
             gpio_write(GREEN_LED, OFF);
             gpio_write(RED_LED, ON);
             delay(100);
-            gpio_write(RED_LED, ON);
+            gpio_write(RED_LED, OFF);
             delay(100);
         }
 
