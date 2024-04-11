@@ -56,11 +56,12 @@ void auto_brake(int devid)
             //== Must stop - flash red and turn other colors off
             gpio_write(GREEN_LED, OFF);
             gpio_write(RED_LED, ON);
+            delay(100);
+            gpio_write(RED_LED, ON);
+            delay(100);
         }
 
         // Write the gpio pin
-        
-
         // OPTIONAL - Print the distance
         printf("Distance: %u cm \n", dist);
    }
@@ -79,6 +80,8 @@ void steering(int gpio, int pos)
     // Task-3: 
     // Your code goes here (Use Lab 05 for reference)
     // Check the project document to understand the task
+    // Delay for the servo period (1 minute = 1000000 microseconds, 1000000 microseconds / 50 loops = 20000 microseconds, or 20 milliseconds)
+    delay_usec(SERVO_PERIOD);
 }
 
 
