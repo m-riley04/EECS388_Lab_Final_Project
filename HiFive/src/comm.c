@@ -61,7 +61,6 @@ void auto_brake(int devid)
             delay(100);
         }
 
-        // Write the gpio pin
         // OPTIONAL - Print the distance
         printf("Distance: %u cm \n", dist);
    }
