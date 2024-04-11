@@ -79,6 +79,29 @@ void steering(int gpio, int pos)
     // Task-3: 
     // Your code goes here (Use Lab 05 for reference)
     // Check the project document to understand the task
+
+    // Basically, you need to take the input angle "pos" and generate the
+    // To generate the pwm signals, use gpio_write() and delay_usec()
+    
+
+    // Define the servo pulses
+    int SERVO_PULSE_MAX = 2400; // 2400 us
+    int SERVO_PULSE_MIN = 544; // 544 us
+    int SERVO_PERIOD = 20000; // 20000 us (or 20ms)
+
+
+    // Gets the pulse rate in pulses per nanosecond
+    int pulse_rate = (SERVO_PULSE_MAX - SERVO_PULSE_MIN) / 180;
+    // Get the current position's pulse rate
+    int position_rate = (pulse_rate) * pos;
+    // Must account for the SERVO_PULSE_MIN that was subtracted initially. The total duty delay.
+    int duty_delay = position_rate + SERVO_PULSE_MIN;
+    // Turn the GPIO pin on
+    gpio_write(gpio, ON);
+    // Delay by the duty amount
+    delay_usec(duty_delay);
+    // Turn the GPIO pin off
+    gpio_write(gpio, OFF);
     // Delay for the servo period (1 minute = 1000000 microseconds, 1000000 microseconds / 50 loops = 20000 microseconds, or 20 milliseconds)
     delay_usec(SERVO_PERIOD);
 }
