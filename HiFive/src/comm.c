@@ -18,6 +18,34 @@ void auto_brake(int devid)
     60cm < d <= 100cm       Break hard          Red
     d <= 60cm               Must stop           Flashing red (100ms blinks)
     */
+
+   // Initialize the varaibles
+   uint8_t dist_L   = 0;
+   uint8_t dist_H   = 0;
+   uint16_t dist    = 0;
+
+   // Check first 2 bytes to ensure frame headers exist and are valid
+   if ('Y' == ser_read(devid) && 'Y' == ser_read(devid)) {
+        // Read dist L byte
+        dist_L = ser_read(devid);
+        // Read dist_H byte
+        dist_H = ser_read(devid);
+
+        // Build the distance value
+        dist = (dist_H << 8) | dist_L;
+
+
+        //=== READING DISTANCE
+        if (dist > 200) {
+            // No breaking - turn green on and others off
+        } else if (100 < dist && dist <= 200) {
+            // Break lightly - turn red and green on and others off
+        } else if (60 < dist && dist <= 100) {
+            // Break hard - turn red on and others off
+        } else {
+            // Must stop - flash red and turn other colors off
+        }
+   }
 }
 
 int read_from_pi(int devid)
