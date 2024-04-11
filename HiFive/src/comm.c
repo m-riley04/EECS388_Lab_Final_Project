@@ -45,6 +45,9 @@ void auto_brake(int devid)
         } else {
             // Must stop - flash red and turn other colors off
         }
+
+        // OPTIONAL - Print the distance
+        printf("Distance: %u cm \n", dist);
    }
 }
 
