@@ -63,10 +63,17 @@ void auto_brake(int devid)
 
 int read_from_pi(int devid)
 {
-    // Task-2: 
-    // You code goes here (Use Lab 09 for reference)
-    // After performing Task-2 at dnn.py code, modify this part to read angle values from Raspberry Pi.
-
+    int value = 0;
+    while (1) {
+        if (ser_isready(1)) {
+            int c1 = ser_read(1);
+            int c2 = ser_read(1);
+            printf("%d, %d\n", c1, c2);
+            // value = ser_read(1) + ser_read(1);
+            break;
+        }
+    }
+    return value;
 }
 
 void steering(int gpio, int pos)
