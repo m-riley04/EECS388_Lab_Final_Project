@@ -91,7 +91,7 @@ while(1):
 		# prediction from the model. This is so that
 		# the HiFive can run the other functions in between
 		if count%4 == 0:
-			ser1.write(deg.astype(np.int16).to_bytes())
+			ser1.write(deg.astype(np.int32).tobytes())
 
 		
         
