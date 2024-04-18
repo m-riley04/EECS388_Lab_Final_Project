@@ -65,12 +65,15 @@ int read_from_pi(int devid)
 {
     int value = 0;
     while (1) {
+        // run continuously until the data is ready
         if (ser_isready(1)) {
+            // fetch 4 characters from UART1
             int c1 = ser_read(1);
             int c2 = ser_read(1);
-            printf("%d, %d\n", c1, c2);
-            // value = ser_read(1) + ser_read(1);
-            break;
+            int c3 = ser_read(1);
+            int c4 = ser_read(1);
+            // combine the characters into a single int
+            value = c1 + (c2 << 8) + (c3 << 16) + (c4 << 24);
         }
     }
     return value;
