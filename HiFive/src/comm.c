@@ -66,10 +66,11 @@ int read_from_pi(int devid) {
   while (1) {
     // run continuously until the data is ready
     if (ser_isready(1)) {
-      // fetch 2 characters from UART1
-      int lo = ser_read(1);
-      int hi = ser_read(1);
-      // combine the characters into a single short
+      // fetch 2 characters from UART1, representing the hi and lo portions
+      // of the 16-bit integer angle
+      short lo = ser_read(1);
+      short hi = ser_read(1);
+      // combine the characters into a single value
       value = lo + (hi << 8);
     }
   }

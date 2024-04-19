@@ -96,6 +96,8 @@ while 1:
         # prediction from the model. This is so that
         # the HiFive can run the other functions in between
         if count % 4 == 0:
+            # first converts deg to a signed short (16-bit integer)
+            # then converts to a byte-array for write()
             ser1.write(deg.astype(np.short).tobytes())
 
         pred_end = time.time()
