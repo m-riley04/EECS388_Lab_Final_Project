@@ -23,11 +23,17 @@ void auto_brake(int devid) {
   uint8_t dist_H = 0;
   uint16_t dist = 0;
 
-  // Check first 2 bytes to ensure frame headers exist and are valid
-  if ('Y' == ser_read(devid) && 'Y' == ser_read(devid)) {
+  // read 4 bytes
+  char b1 = ser_read(devid);
+  char b2 = ser_read(devid);
+  char b3 = ser_read(devid);
+  char b4 = ser_read(devid);
 
-    dist_L = ser_read(devid); // Read dist L byte
-    dist_H = ser_read(devid); // Read dist_H byte
+  // Check first 2 bytes to ensure frame headers exist and are valid
+  if ('Y' == b1 && 'Y' == b2) {
+
+    dist_L = b3; // Read dist L byte
+    dist_H = b4; // Read dist_H byte
     dist =
         (dist_H << 8) | dist_L; // Build the distance value by shifting the bits
 
