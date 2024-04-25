@@ -62,20 +62,19 @@ void auto_brake(int devid) {
 }
 
 int read_from_pi(int devid) {
-  short value;
   while (1) {
     // run continuously until the data is ready
-    if (ser_isready(1)) {
+    if (ser_isready(devid)) {
       // fetch 2 characters from UART1, representing the hi and lo portions
       // of the 16-bit integer angle
-      short lo = ser_read(1);
-      short hi = ser_read(1);
-      // combine the characters into a single value
-      value = lo + (hi << 8);
+      short lo = ser_read(devid);
+      short hi = ser_read(devid);
+      // combine the characters into a single angle value
+      short angle = (hi << 8) | lo;
+      // return as int
+      return angle;
     }
   }
-  // return as int
-  return value;
 }
 
 void steering(int gpio, int pos) {
